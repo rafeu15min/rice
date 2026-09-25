@@ -1,0 +1,156 @@
+/* =====================================================================
+   WAYBAR - ESTÉTICA (ÍCONES VETORIAIS E TASKBAR)
+   ===================================================================== */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+window#waybar {
+    background-color: #121212;
+    border-top: 2px solid #3f68ee;
+    color: #d6ebff;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+#taskbar,
+#clock,
+#tray,
+#cpu,
+#memory,
+#network,
+#bluetooth,
+#pulseaudio,
+#custom-power,
+#custom-notification,
+#custom-minimized {
+    background-color: #181a1f;
+    padding: 2px 14px;
+    margin: 4px 4px;
+    border-radius: 4px;
+    border: 1px solid #3f68ee;
+}
+
+/* =========================================================
+   BOTÕES DE WORKSPACE (group/workspaces -> custom/ws1..9)
+   Módulo nativo "hyprland/workspaces" trocado por 9 custom
+   dentro de um "group" (uma pílula só, visual idêntico ao
+   original) por causa de bug aberto do Waybar (clique manda
+   sintaxe clássica de dispatch, que essa build Lua do
+   Hyprland rejeita -- Alexays/Waybar#5008, sem fix; scroll
+   continua no bind próprio do Hyprland, não no Waybar).
+   ========================================================= */
+
+#workspaces {
+    background-color: #181a1f;
+    padding: 2px 14px;
+    margin: 4px 4px;
+    border-radius: 4px;
+    border: 1px solid #3f68ee;
+}
+
+#custom-ws1, #custom-ws2, #custom-ws3, #custom-ws4, #custom-ws5,
+#custom-ws6, #custom-ws7, #custom-ws8, #custom-ws9 {
+    padding: 0 8px;
+    color: #5c6370;
+    background: transparent;
+}
+
+#custom-ws1.occupied, #custom-ws2.occupied, #custom-ws3.occupied, #custom-ws4.occupied,
+#custom-ws5.occupied, #custom-ws6.occupied, #custom-ws7.occupied, #custom-ws8.occupied,
+#custom-ws9.occupied {
+    color: #a3d5ff;
+}
+
+#custom-ws1.active, #custom-ws2.active, #custom-ws3.active, #custom-ws4.active,
+#custom-ws5.active, #custom-ws6.active, #custom-ws7.active, #custom-ws8.active,
+#custom-ws9.active {
+    color: #00bfff;
+    background-color: transparent;
+}
+
+/* =========================================================
+   BARRA DE TAREFAS (TABS DOS APLICATIVOS)
+   ========================================================= */
+
+#window {
+color: #a3d5ff;
+background-color: transparent;
+border: 1px solid transparent;
+}
+
+/* =========================================================
+   ESTADOS DE HARDWARE
+   ========================================================= */
+
+#cpu.green, #memory.green { background-color: #98c379; color: #121212; }
+#cpu.yellowgreen, #memory.yellowgreen { background-color: #b2c355; color: #121212; }
+#cpu.yellow, #memory.yellow { background-color: #e5c07b; color: #121212; }
+#cpu.orange, #memory.orange { background-color: #d19a66; color: #121212; }
+#cpu.red, #memory.red {
+    background-color: #e06c75;
+    color: #ffffff;
+    animation: piscar 1.5s infinite alternate;
+}
+
+@keyframes piscar {
+    to { background-color: #be5046; color: #ffffff; }
+}
+
+/* =========================================================
+   ÁUDIO, NOTIFICAÇÕES E SISTEMA
+   ========================================================= */
+
+#network { color: #d6ebff; }
+#bluetooth { color: #d6ebff; }
+#bluetooth.connected { color: #00bfff; }
+#bluetooth.off, #bluetooth.disabled {
+    color: #5c6370;
+    background-color: #1a1c23;
+    border-color: #5c6370;
+}
+#pulseaudio { color: #d6ebff; }
+#pulseaudio.muted {
+    color: #5c6370;
+    background-color: #1a1c23;
+    border-color: #5c6370;
+}
+
+#custom-notification { color: #3f68ee; }
+
+#custom-power {
+    color: #e5a4aa;
+    margin-left: 8px;
+    border-color: #e5a4aa;
+}
+#custom-power:hover {
+    background-color: rgba(229, 164, 170, 0.2);
+    color: #121212;
+}
+
+#tray > .passive { -gtk-icon-effect: dim; }
+#tray > .needs-attention { -gtk-icon-effect: highlight; background-color: #e5a4aa; }
+
+/* =========================================================
+   LISTA DE MINIMIZADOS (Dimensão Paralela)
+   ========================================================= */
+
+/* Sem nada minimizado: colapsa a pill pra não sobrar caixa vazia na barra */
+#custom-minimized.empty {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+}
+
+/* Com janelas na lista: mesmo acento do workspace ativo, pra chamar atenção */
+#custom-minimized.has-items {
+    color: #00bfff;
+    border-color: #00bfff;
+}
+#custom-minimized.has-items:hover {
+    background-color: rgba(0, 191, 255, 0.1);
+}

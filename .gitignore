@@ -1,0 +1,4 @@
+# segredos / estado local
+config/fish/wol.env
+config/fish/fish_variables
+*.env

@@ -1,0 +1,195 @@
+# ==========================================
+# HYPRLAND CONFIGURATION - RAFEU-PC
+# ==========================================
+
+# 1. Monitor
+monitor=,preferred,auto,1
+
+# 2. Programas padrão
+$terminal = alacritty
+$menu = pkill -x rofi || rofi -show drun
+$fileManager = /usr/bin/thunar
+
+# 3. Autostart (Serviços em Background)
+exec-once = waybar
+exec-once = wl-paste --type text --watch cliphist store
+exec-once = wl-paste --type image --watch cliphist store
+exec-once = swaync
+exec-once = swaybg -i /home/rafeu/Imagens/1Corintios(sombra).png -m fill
+exec-once = hyprswitch init --show-title --size-factor 5
+
+# 4. Variáveis de Ambiente (Wayland)
+env = XCURSOR_SIZE,24
+env = QT_QPA_PLATFORMTHEME,qt5ct
+
+# 5. Input e Teclado
+input {
+    kb_layout = br
+    kb_variant =
+    kb_model =
+    kb_options =
+    kb_rules =
+    follow_mouse = 1
+    sensitivity = 0
+}
+
+# 6. Estética
+general {
+    gaps_in = 5
+    gaps_out = 10
+    border_size = 2
+    col.active_border = rgba(3F68EEff) rgba(00BFFFff) 45deg
+    col.inactive_border = rgba(5c6370aa)
+    layout = dwindle
+}
+
+decoration {
+    rounding = 8
+    blur {
+        enabled = true
+        size = 3
+        passes = 1
+    }
+}
+
+animations {
+    enabled = yes
+    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+    animation = windows, 1, 7, myBezier
+    animation = windowsOut, 1, 7, default, popin 80%
+    animation = border, 1, 10, default
+    animation = fade, 1, 7, default
+    animation = workspaces, 1, 6, default
+}
+
+dwindle {
+    preserve_split = yes
+}
+
+# ==========================================
+# REGRAS DE JANELA (Sintaxe Purista Unificada)
+# ==========================================
+
+# 1. CPU Popup
+windowrule {
+    name = sys-cpu,
+    match:class = "sys-cpu",
+    float = 1,
+    size = 850 550,
+    move = 100%-870 100%-620,
+    pin = 1
+}
+
+# 2. RAM Popup
+windowrule {
+    name = sys-mem,
+    match:class = "sys-mem",
+    float = 1,
+    size = 850 550,
+    move = 100%-870 100%-620,
+    pin = 1
+}
+
+# 3. Volume Popup
+windowrule {
+    name = sys-vol,
+    match:class = "sys-vol",
+    float = 1,
+    size = 850 550,
+    move = 100%-870 100%-620,
+    pin = 1
+}
+
+# 4. Network Popup (Módulo sys-net gráfico)
+windowrule {
+    name = sys-net,
+    match:class = "sys-net",
+    float = 1,
+    size = 850 550,
+    move = 100%-870 100%-620,
+    pin = 1
+}
+
+# ==========================================
+# ATALHOS DE TECLADO
+# ==========================================
+$mainMod = SUPER
+
+bind = $mainMod, Return, exec, $terminal
+bind = $mainMod, E, exec, $fileManager
+bind = $mainMod, W, killactive,
+bind = $mainMod, Q, exit,
+bind = $mainMod, F, fullscreen,
+bind = $mainMod SHIFT, Space, togglefloating,
+
+# Dimensão Paralela (Minimizar a janela em foco + registrar na lista congelada)
+bind = $mainMod, M, exec, ~/.config/waybar/scripts/minimize.sh
+# Catálogo Visual (Alternador de Janelas via Hyprswitch em Rust)
+bind = $mainMod SHIFT, M, exec, ~/.config/waybar/scripts/minimized.sh --restore
+
+bindr = $mainMod, SUPER_L, exec, $menu
+
+bind = $mainMod, H, movefocus, l
+bind = $mainMod, L, movefocus, r
+bind = $mainMod, K, movefocus, u
+bind = $mainMod, J, movefocus, d
+
+bind = $mainMod SHIFT, H, swapwindow, l
+bind = $mainMod SHIFT, L, swapwindow, r
+bind = $mainMod SHIFT, K, swapwindow, u
+bind = $mainMod SHIFT, J, swapwindow, d
+
+bind = $mainMod SHIFT, R, layoutmsg, togglesplit
+
+binde = $mainMod ALT, H, resizeactive, -40 0
+binde = $mainMod ALT, L, resizeactive, 40 0
+binde = $mainMod ALT, K, resizeactive, 0 -40
+binde = $mainMod ALT, J, resizeactive, 0 40
+
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, Tab, workspace, previous 
+
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+
+# ==========================================
+# UTILITÁRIOS E FERRAMENTAS WAYLAND
+# ==========================================
+bind = $mainMod SHIFT, S, exec, bash -c 'grim -g "$(slurp)" - | wl-copy &$1Discord$2& notify-send "Captura Concluída" "Imagem copiada para a RAM."'
+bind = $mainMod, V, exec, bash -c 'cliphist list | rofi -dmenu -p "Área de Transferência" | cliphist decode | wl-copy'
+bind = $mainMod, R, exec, bash -c 'if pgrep -x wl-screenrec > /dev/null; then pkill -x wl-screenrec; notify-send "Gravação Parada" "Vídeo finalizado"; else wl-screenrec -f ~/Videos/Gravacao_$(date +"%Y-%m-%d_%H-%M-%S").mp4 & notify-send "Gravando Tela" "Super+R para parar"; fi'
+
+# ==========================================
+# ÁUDIO E VOLUME
+# ==========================================
+bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindl = ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+# ==========================================
+# PERFORMANCE E JOGOS
+# ==========================================
+render {
+    direct_scanout = true
+}
+misc {
+    vrr = 1
+}

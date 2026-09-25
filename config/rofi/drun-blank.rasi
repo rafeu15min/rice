@@ -1,0 +1,16 @@
+/* =====================================================================
+   ROFI - Variante do drun (menu de apps, SUPER/click no menu) sem texto
+   no prompt nem no placeholder — herda tudo do tema central, só isso
+   muda. Não afeta vault-sync-menu/clipboard/powermenu (esses continuam
+   usando ~/.config/rofi/config.rasi direto, com o -p de cada um).
+   ===================================================================== */
+
+@theme "~/.config/rofi/blue-center.rasi"
+
+configuration {
+    display-drun: "";
+}
+
+entry {
+    placeholder: "";
+}

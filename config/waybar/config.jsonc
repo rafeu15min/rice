@@ -1,0 +1,173 @@
+{
+"layer": "top",
+"position": "bottom",
+"height": 40,
+"spacing": 6,
+"exclusive": true,
+
+"modules-left": [
+    "custom/power",
+    "group/workspaces",
+    "custom/minimized",
+    "hyprland/window"
+],
+"modules-center": [],
+
+"modules-right": [
+    "tray",
+    "cpu",
+    "memory",
+    "network",
+    "bluetooth",
+    "pulseaudio",
+    "clock",
+    "custom/notification"
+],
+
+"custom/power": {
+    "format": "  ",
+    "tooltip": false,
+    "on-click": "pkill -x rofi 2>/dev/null; pkill -x wlogout || wlogout -b 5 -T 393 -B 393"
+},
+
+"group/workspaces": { "orientation": "horizontal", "modules": ["custom/ws1","custom/ws2","custom/ws3","custom/ws4","custom/ws5","custom/ws6","custom/ws7","custom/ws8","custom/ws9"] },
+
+"custom/ws1": { "exec": "~/.config/waybar/scripts/workspace-button.sh 1", "return-type": "json", "interval": 5, "signal": 8, "on-click": "hyprctl dispatch \"hl.dsp.focus({workspace=1})\"" },
+"custom/ws2": { "exec": "~/.config/waybar/scripts/workspace-button.sh 2", "return-type": "json", "interval": 5, "signal": 8, "on-click": "hyprctl dispatch \"hl.dsp.focus({workspace=2})\"" },
+"custom/ws3": { "exec": "~/.config/waybar/scripts/workspace-button.sh 3", "return-type": "json", "interval": 5, "signal": 8, "on-click": "hyprctl dispatch \"hl.dsp.focus({workspace=3})\"" },
+"custom/ws4": { "exec": "~/.config/waybar/scripts/workspace-button.sh 4", "return-type": "json", "interval": 5, "signal": 8, "on-click": "hyprctl dispatch \"hl.dsp.focus({workspace=4})\"" },
+"custom/ws5": { "exec": "~/.config/waybar/scripts/workspace-button.sh 5", "return-type": "json", "interval": 5, "signal": 8, "on-click": "hyprctl dispatch \"hl.dsp.focus({workspace=5})\"" },
+"custom/ws6": { "exec": "~/.config/waybar/scripts/workspace-button.sh 6", "return-type": "json", "interval": 5, "signal": 8, "on-click": "hyprctl dispatch \"hl.dsp.focus({workspace=6})\"" },
+"custom/ws7": { "exec": "~/.config/waybar/scripts/workspace-button.sh 7", "return-type": "json", "interval": 5, "signal": 8, "on-click": "hyprctl dispatch \"hl.dsp.focus({workspace=7})\"" },
+"custom/ws8": { "exec": "~/.config/waybar/scripts/workspace-button.sh 8", "return-type": "json", "interval": 5, "signal": 8, "on-click": "hyprctl dispatch \"hl.dsp.focus({workspace=8})\"" },
+"custom/ws9": { "exec": "~/.config/waybar/scripts/workspace-button.sh 9", "return-type": "json", "interval": 5, "signal": 8, "on-click": "hyprctl dispatch \"hl.dsp.focus({workspace=9})\"" },
+
+"hyprland/window": {
+    "format": "   {title}",
+    "max-length": 50,
+    "rewrite": {        
+            "":"",
+            "   (.*) - Vivaldi": "   $1",
+            "   YouTube(.*)": "   $1",
+            "   (.*) - Steam": "   $1",
+            "   Steam": "   Steam",
+            "   (.*) - Thunar": "   $1",
+            "   Thunar": "   Thunar",
+            "   (.*) - Alacritty": "   $1",
+            "   Alacritty": "   fish",
+            "   (.*) - fish": "   $1",
+            "   fish": "   fish",
+            "   (.*) - Discord": " $1",
+            "   Discord": " Discord",
+            "   (.*)Discord(.*)": " $1Discord$2",
+            "   (.*) - nvim": "   $1",
+            "   nvim": "   Code"}
+},
+
+"tray": {
+    "icon-size": 18,
+    "spacing": 10
+},
+
+"clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "   {:%H:%M - %d/%m}"
+},
+
+"cpu": {
+    "format": "   {usage}%",
+    "tooltip": false,
+    "states": {
+        "green": 0,
+        "yellowgreen": 30,
+        "yellow": 50,
+        "orange": 70,
+        "red": 90
+    },
+    "on-click": "~/.config/waybar/scripts/popup.sh sys-cpu 850 550 alacritty -e htop --sort-key PERCENT_CPU"
+},
+
+"memory": {
+    "format": "   {}%",
+    "tooltip": false,
+    "states": {
+        "green": 0,
+        "yellowgreen": 30,
+        "yellow": 50,
+        "orange": 70,
+        "red": 90
+    },
+    "on-click": "~/.config/waybar/scripts/popup.sh sys-mem 850 550 alacritty -e htop --sort-key PERCENT_MEM"
+},
+
+"network": {
+    "format-wifi": "  {essid} ({signalStrength}%)",
+    "format-ethernet": "󰈀  {ipaddr}",
+    "format-disconnected": "󰤭  Desconectado",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "on-click": "~/.config/waybar/scripts/popup.sh sys-net 850 550 alacritty -e nmtui",
+    "on-click-right": "nmcli networking off && sleep 1 && nmcli networking on"
+},
+
+"bluetooth": {
+    "format": "󰂯",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "format-on": "󰂯",
+    "format-connected": "󰂱  {num_connections}",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "~/.config/waybar/scripts/popup.sh sys-bt 850 550 alacritty -e bluetui"
+},
+
+"pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "  {volume}%",
+    "format-bluetooth-muted": "  󰝟 ",
+    "format-muted": " 󰝟 ",
+    "format-icons": {
+        "headphone": "  ",
+        "hands-free": "  ",
+        "headset": " 󰋎 ",
+        "default": [
+            "  ",
+            "  ",
+            "  "
+        ]
+    },
+    "on-click": "~/.config/waybar/scripts/popup.sh sys-vol 650 450 alacritty -e pulsemixer",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+},
+
+"custom/minimized": {
+    "exec": "~/.config/waybar/scripts/minimized.sh",
+    "return-type": "json",
+    "interval": 2,
+    "on-click": "~/.config/waybar/scripts/minimized.sh --restore",
+    "tooltip": true
+},
+
+"custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+        "notification": "  <span foreground='red'><sup></sup></span>",
+        "none": "  ",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "  ",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "  "
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+}
+
+
+}

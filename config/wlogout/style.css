@@ -1,0 +1,58 @@
+/* =====================================================================
+   WLOGOUT - paleta combinando com Waybar/Rofi/hyprlock/swaync
+   Fundo frio (#181a1f/#121212), acentos em azul (#3F68EE / #00BFFF)
+   ===================================================================== */
+
+* {
+    background-image: none;
+    box-shadow: none;
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", sans-serif;
+}
+
+window {
+    background-color: rgba(18, 18, 18, 0.85);
+}
+
+button {
+    color: #D6EBFF;
+    background-color: #181a1f;
+    border: 2px solid #3F68EE;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-position: center 30%;
+    background-size: 22%;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 10px;
+    min-width: 180px;
+    min-height: 180px;
+    transition: 200ms ease-in-out;
+}
+
+button:focus,
+button:active,
+button:hover {
+    background-color: #3F68EE;
+    border-color: #00BFFF;
+    outline-style: none;
+}
+
+#lock {
+    background-image: image(url("/home/rafeu/.config/wlogout/icons/lock.svg"));
+}
+
+#suspend {
+    background-image: image(url("/home/rafeu/.config/wlogout/icons/suspend.svg"));
+}
+
+#reboot {
+    background-image: image(url("/home/rafeu/.config/wlogout/icons/reboot.svg"));
+}
+
+#shutdown {
+    background-image: image(url("/home/rafeu/.config/wlogout/icons/shutdown.svg"));
+}
+
+#logout {
+    background-image: image(url("/home/rafeu/.config/wlogout/icons/logout.svg"));
+}
